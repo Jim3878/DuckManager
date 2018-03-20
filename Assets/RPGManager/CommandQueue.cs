@@ -5,9 +5,15 @@ using UnityEngine;
 
 namespace DuckGame
 {
-    public class CommandQueue<T>:IEnumerable<T>
+    public class CommandQueue<T>:Queue<T>
     {
-        Queue<T> mQueue;
+        Queue<T> mQueue
+        {
+            get
+            {
+                return base.MemberwiseClone() as Queue<T>;
+            }
+        }
 
         public bool isEmpty
         {
@@ -16,78 +22,35 @@ namespace DuckGame
                 return mQueue.Count == 0;
             }
         }
-
-        public int Count
-        {
-            get
-            {
-                return mQueue.Count;
-            }
-        }
+        
 
         public void Insert(T[] Items)
         {
             if (!isEmpty)
             {
                 Queue<T> queue = new Queue<T>();
-                queue.Enqueue(mQueue.Dequeue());
+                queue.Enqueue(base.Dequeue());
                 for (int i = 0; i < Items.Length; i++)
                 {
                     queue.Enqueue(Items[i]);
                 }
-                while (mQueue.Count > 0)
+                while (base.Count > 0)
                 {
-                    queue.Enqueue(mQueue.Dequeue());
+                    queue.Enqueue(base.Dequeue());
                 }
-                mQueue = queue;
+
+                while (queue.Count > 0)
+                {
+                    base.Enqueue(queue.Dequeue());
+                }
+                
             }else
             {
                 for(int i = 0; i < Items.Length; i++)
                 {
-                    mQueue.Enqueue(Items[i]);
+                    base.Enqueue(Items[i]);
                 }
             }
-        }
-  
-        public T[] ToArray()
-        {
-            //mQueue.GetEnumerator
-            return mQueue.ToArray();
-        }
-
-        public CommandQueue()
-        {
-            this.mQueue = new Queue<T>();
-        }
-
-        public void EnQueue(T item)
-        {
-            mQueue.Enqueue(item);
-        }
-
-        public T DeQueue()
-        {
-            return mQueue.Dequeue();
-        }
-
-        public T Peek()
-        {
-            return mQueue.Peek();
-        }
-
-        public void Clear()
-        {
-            mQueue.Clear();
-        }
-
-        public IEnumerator<T> GetEnumerator()
-        {
-            return mQueue.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return mQueue.GetEnumerator();
         }
     }
 }

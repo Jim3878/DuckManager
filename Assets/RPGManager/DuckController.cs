@@ -6,7 +6,7 @@ namespace DuckGame
 {
     public class DuckController
     {
-        private Queue<ICommand> CommandQueue;
+        private CommandQueue<ICommand> commandQueue;
         private bool _isStart = false;
         public bool isStart
         {
@@ -19,7 +19,7 @@ namespace DuckGame
         {
             get
             {
-                return CommandQueue.Count == 0;
+                return commandQueue.Count == 0;
             }
         }
         private bool _isTerminate;
@@ -45,18 +45,18 @@ namespace DuckGame
             }
             if (isTerminate)
             {
-                throw new System.Exception("[DuckController]has been sterminated");
+                throw new System.Exception("[DuckController]has been terminated");
             }
             _isStart = true;
-            CommandQueue = new Queue<ICommand>();
-            CommandQueue.Enqueue(command);
+            commandQueue = new CommandQueue<ICommand>();
+            commandQueue.Enqueue(command);
         }
 
         public void Update()
         {
             if (isStart && !isTerminate && !isWait)
             {
-                var command = CommandQueue.Peek();
+                var command = commandQueue.Peek();
                 if (!command.isBegin)
                 {
                     command.TouchCommandBegin();
@@ -73,13 +73,32 @@ namespace DuckGame
                         command.TouchCommandTerminated();
                         command.End();
                     }
-                    CommandQueue.Dequeue();
+                    commandQueue.Dequeue();
                 }
             }
         }
+        
+        public void AddCommand(ICommand command)
+        {
+            StateCheck();
+            commandQueue.Enqueue(command);
+        }
 
-
-
-
+        public void InsertCommand(params ICommand[] command)
+        {
+            StateCheck();
+            commandQueue.Insert(command);
+        }
+        private void StateCheck()
+        {
+            if (!isStart)
+            {
+                throw new System.Exception("[DuckCountroller]have to start first.");
+            }
+            if (isTerminate)
+            {
+                throw new System.Exception("[DuckController]has been terminated.");
+            }
+        }
     }
 }

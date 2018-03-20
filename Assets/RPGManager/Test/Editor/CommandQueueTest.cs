@@ -22,7 +22,7 @@ public class CommandQueueTest {
         
         for(int i = 0; i < arrLength; i++)
         {
-            Assert.AreEqual(i, q.DeQueue());
+            Assert.AreEqual(i, q.Dequeue());
         }
     }
 
@@ -33,7 +33,7 @@ public class CommandQueueTest {
         int[] insertArr = new int[10];
         for(int i = 0; i < 10; i++)
         {
-            q.EnQueue(i);
+            q.Enqueue(i);
         }
         for(int i = 10; i < 20; i++)
         {
@@ -42,14 +42,14 @@ public class CommandQueueTest {
 
         q.Insert(insertArr);
 
-        Assert.AreEqual(0, q.DeQueue());
+        Assert.AreEqual(0, q.Dequeue());
         for(int i = 10; i < 20; i++)
         {
-            Assert.AreEqual(i, q.DeQueue());
+            Assert.AreEqual(i, q.Dequeue());
         }
         for(int i = 1; i < 10; i++)
         {
-            Assert.AreEqual(i, q.DeQueue());
+            Assert.AreEqual(i, q.Dequeue());
         }
 	}
 }

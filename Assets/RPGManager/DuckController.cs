@@ -54,6 +54,7 @@ namespace DuckGame
 
         public void Update()
         {
+            LifeCheck();
             if (isStart && !isTerminate && !isWait)
             {
                 var command = commandQueue.Peek();
@@ -77,19 +78,37 @@ namespace DuckGame
                 }
             }
         }
-        
-        public void AddCommand(ICommand command)
+
+        public void AddCommand(params ICommand[] commands)
         {
-            StateCheck();
-            commandQueue.Enqueue(command);
+            if (isTerminate)
+            {
+                throw new System.Exception("[DuckController]has been terminated.");
+            }
+            for (int i = 0; i < commands.Length; i++)
+            {
+                if (!isStart)
+                    Start(commands[i]);
+                else
+                    commandQueue.Enqueue(commands[i]);
+            }
+
         }
 
-        public void InsertCommand(params ICommand[] command)
+        public void InsertCommand(params ICommand[] commands)
         {
-            StateCheck();
-            commandQueue.Insert(command);
+            LifeCheck();
+            commandQueue.Insert(commands);
+            var currentCmd = commandQueue.Dequeue();
+            if (!currentCmd.isTerminated)
+            {
+                currentCmd.TouchCommandTerminated();
+                currentCmd.End();
+            }
+
+
         }
-        private void StateCheck()
+        private void LifeCheck()
         {
             if (!isStart)
             {

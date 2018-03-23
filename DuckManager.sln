@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2015
+# Visual Studio 2017
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuckManager", "DuckManager.csproj", "{1FAE0BBC-D987-E2A3-950A-862B9FB67544}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuckManager.Editor", "DuckManager.Editor.csproj", "{1B513F26-47A6-AD91-6E80-903A24D11FEA}"

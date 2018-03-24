@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace DuckGame
 {
-    public class CommandQueue<T>:Queue<T>
+    public class MissionQueue<T>:Queue<T>
     {
         Queue<T> mQueue
         {
@@ -23,7 +23,6 @@ namespace DuckGame
             }
         }
         
-
         public void Insert(T[] Items)
         {
             if (!isEmpty)

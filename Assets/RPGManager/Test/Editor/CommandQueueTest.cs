@@ -10,7 +10,7 @@ public class CommandQueueTest {
     [Test]
     public void InsertQueue_InsertWhenCountIsZero_EnqueueItemsAll()
     {
-        CommandQueue<int> q = new CommandQueue<int>();
+        MissionQueue<int> q = new MissionQueue<int>();
         int arrLength=10;
         int[] insertArr = new int[arrLength];
         for(int i = 0; i < arrLength; i++)
@@ -29,7 +29,7 @@ public class CommandQueueTest {
 	[Test]
 	public void InsertQueue_InsertItems_thisFirsItemWontChange() {
         // Use the Assert class to test conditions.
-        CommandQueue<int> q = new CommandQueue<int>();
+        MissionQueue<int> q = new MissionQueue<int>();
         int[] insertArr = new int[10];
         for(int i = 0; i < 10; i++)
         {

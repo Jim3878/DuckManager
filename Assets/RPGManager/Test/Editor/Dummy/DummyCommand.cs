@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace DuckGame
 {
-    public class DummyCommand : ICommand
+    public class DummyMission : BaseMission
     {
        
         public int BeginCount=0;
@@ -13,22 +13,27 @@ namespace DuckGame
         public int EndCount=0;
 
         public int updateTarget;
-        public DummyCommand(int updateTarget)
+        public DummyMission(int updateTarget)
         {
             this.updateTarget = updateTarget;
         }
 
-        public override void Begin()
+        public override void Begin(object o)
         {
             BeginCount++;
         }
 
-        public override void End()
+        public override void End(object o)
         {
             EndCount++;
         }
 
-        public override void Update()
+        public override void Complete(object target)
+        {
+            UpdataCount = updateTarget;
+        }
+
+        public override void Update(object o)
         {
             UpdataCount++;
         }

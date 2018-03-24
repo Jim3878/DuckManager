@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DuckGame
 {
-    public  class ICommand
+    public  class BaseMission
     {
         private DuckController _duckController;
         protected DuckController duckController
@@ -22,14 +22,6 @@ namespace DuckGame
                 return _isBegin;
             }
         }
-        private bool _isTerminated=false;
-        public bool isTerminated
-        {
-            get
-            {
-                return _isTerminated;
-            }
-        }
 
         public void SetProperty(DuckController duckController)
         {
@@ -40,15 +32,11 @@ namespace DuckGame
         {
             _isBegin = true;
         }
-
-        public void TouchCommandTerminated()
-        {
-            _isTerminated = true;
-        }
         
-        public virtual void Begin() { }
-        public virtual void Update() {}
-        public virtual void End() { }
+        public virtual void Begin(object target) { }
+        public virtual void Update(object target) {}
+        public virtual void Complete(object target) { }
+        public virtual void End(object target) { }
         public virtual bool isExecutable { get { return true; } }
 
         public override string ToString()

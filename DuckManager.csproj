@@ -285,6 +285,11 @@
     <Compile Include="Assets\RPGManager\Core\BaseMission.cs" />
     <Compile Include="Assets\RPGManager\Core\CommandQueue.cs" />
     <Compile Include="Assets\RPGManager\Core\DuckController.cs" />
+    <Compile Include="Assets\RPGManager\Core\IMissionManager.cs" />
+    <Compile Include="Assets\RPGManager\Core\LimitStateMachine\Core\IState.cs" />
+    <Compile Include="Assets\RPGManager\Core\LimitStateMachine\Core\StateController.cs" />
+    <Compile Include="Assets\RPGManager\Core\LimitStateMachine\NormalState.cs" />
+    <Compile Include="Assets\RPGManager\Core\MissionManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

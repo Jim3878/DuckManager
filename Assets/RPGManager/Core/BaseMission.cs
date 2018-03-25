@@ -6,14 +6,7 @@ namespace DuckGame
 {
     public  class BaseMission
     {
-        private DuckController _duckController;
-        protected DuckController duckController
-        {
-            get
-            {
-                return _duckController;
-            }
-        }
+       
         private bool _isBegin=false;
         public bool isBegin
         {
@@ -22,10 +15,18 @@ namespace DuckGame
                 return _isBegin;
             }
         }
-
-        public void SetProperty(DuckController duckController)
+        private object _target;
+        protected object target
         {
-            this._duckController = duckController;
+            get
+            {
+                return _target;
+            }
+        }
+
+        public void SetProperty(object target)
+        {
+            this._target = target;
         }
 
         public void TouchCommandBegin()
@@ -33,10 +34,10 @@ namespace DuckGame
             _isBegin = true;
         }
         
-        public virtual void Begin(object target) { }
-        public virtual void Update(object target) {}
-        public virtual void Complete(object target) { }
-        public virtual void End(object target) { }
+        public virtual void Begin( ) { }
+        public virtual void Update( ) {}
+        public virtual void Complete( ) { }
+        public virtual void End() { }
         public virtual bool isExecutable { get { return true; } }
 
         public override string ToString()

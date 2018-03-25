@@ -18,22 +18,22 @@ namespace DuckGame
             this.updateTarget = updateTarget;
         }
 
-        public override void Begin(object o)
+        public override void Begin( )
         {
             BeginCount++;
         }
 
-        public override void End(object o)
+        public override void End( )
         {
             EndCount++;
         }
 
-        public override void Complete(object target)
+        public override void Complete( )
         {
             UpdataCount = updateTarget;
         }
 
-        public override void Update(object o)
+        public override void Update()
         {
             UpdataCount++;
         }

@@ -6,7 +6,9 @@ namespace DuckGame
 {
     public class DuckController
     {
-        private MissionQueue<BaseMission> missionQueue = new MissionQueue<BaseMission>();
+        private IMissionManager<BaseMission> missionManager= new MissionManager<BaseMission>();
+        
+        private StateController stateController;
         private bool _isStart = false;
         private object _target;
         public object target
@@ -27,7 +29,7 @@ namespace DuckGame
         {
             get
             {
-                return isStart && missionQueue.Count == 0;
+                return isStart && missionManager.Count == 0;
             }
         }
         private bool _isPause = false;
@@ -55,6 +57,12 @@ namespace DuckGame
 
         public void Start(object target)
         {
+            //this.missionManager = new MissionManager<BaseMission>();
+            Start(target, new NormalState(this.missionManager));
+        }
+
+        public void Start(object target,IState state)
+        {
             if (isStart)
             {
                 throw new System.Exception("[DuckController]has been start");
@@ -64,41 +72,20 @@ namespace DuckGame
                 throw new System.Exception("[DuckController]has been terminated");
             }
             _isStart = true;
+            this.stateController = new StateController(state);
             this._target = target;
         }
 
         public void Update()
         {
             LifeCheck();
-            if (isStart && !isPause && !isTerminate && !isIdle)
-            {
-                var command = missionQueue.Peek();
-                if (!command.isBegin)
-                {
-                    command.TouchCommandBegin();
-                    command.Begin(target);
-                }
-                if (command.isExecutable)
-                {
-                    command.Update(target);
-                }
-                else
-                {
-                    EndCurrentMission();
-                }
-            }
+            this.stateController.StateUpdate();
         }
 
         public void AddMission(params BaseMission[] commands)
         {
-            if (isTerminate)
-            {
-                throw new System.Exception("[DuckController]has been terminated.");
-            }
-            for (int i = 0; i < commands.Length; i++)
-            {
-                missionQueue.Enqueue(commands[i]);
-            }
+            LifeCheck();
+            missionManager.PushiMission(commands);
         }
 
         /// <summary>
@@ -109,8 +96,7 @@ namespace DuckGame
         public void InsertMission(bool isComplete, params BaseMission[] commands)
         {
             LifeCheck();
-            missionQueue.Insert(commands);
-            EndCurrentMission(isComplete);
+            missionManager.InsertMission(commands, isComplete);
         }
 
         public void Pause()
@@ -127,12 +113,12 @@ namespace DuckGame
         {
             LifeCheck();
             EndCurrentMission(isComplete);
-            this.missionQueue.Clear();
+            this.missionManager.Clear();
         }
 
         public BaseMission[] GetAllMission()
         {
-            return missionQueue.ToArray();
+            return missionManager.ToArray();
         }
 
         public void Terminate(bool isComplete = false)
@@ -140,18 +126,18 @@ namespace DuckGame
             LifeCheck();
             this._isTerminate = true;
             EndCurrentMission(isComplete);
-            this.missionQueue.Clear();
+            this.missionManager.Clear();
         }
 
         public void EndCurrentMission(bool isComplete = false)
         {
             if (!isIdle)
             {
-                if (!missionQueue.Peek().isBegin)
-                    missionQueue.Peek().Begin(target);
+                if (!missionManager.PeekMission().isBegin)
+                    missionManager.PeekMission().Begin();
                 if (isComplete)
-                    missionQueue.Peek().Complete(target);
-                missionQueue.Dequeue().End(target);
+                    missionManager.PeekMission().Complete();
+                missionManager.PopMission().End();
             }
         }
 

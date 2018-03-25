@@ -55,6 +55,7 @@ public class DuckControllerTest
             duck.Update();
         }
 
+        
         Assert.IsTrue(duck.isIdle);
         Assert.AreEqual(1, msn.BeginCount);
         Assert.AreEqual(updateTarget, msn.UpdataCount);

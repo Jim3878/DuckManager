@@ -29,8 +29,8 @@ namespace DuckGame
                 }
                 else
                 {
-                    command.End();
                     missionManager.PopMission();
+                    command.End();
                 }
             }
         }

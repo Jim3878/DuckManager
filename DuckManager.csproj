@@ -288,10 +288,11 @@
     <Compile Include="Assets\DuckManager\Core\WaitState.cs" />
     <Compile Include="Assets\DuckManager\FSM\IState.cs" />
     <Compile Include="Assets\DuckManager\FSM\StateController.cs" />
-    <Compile Include="Assets\DuckManager\Sample\InsertMission.cs" />
-    <Compile Include="Assets\DuckManager\Sample\ObjectManager.cs" />
     <Compile Include="Assets\DuckManager\StateExtends\SimpleMove.cs" />
     <Compile Include="Assets\DuckManager\StateExtends\Terminate.cs" />
+    <Compile Include="Assets\Sample\InsertMission.cs" />
+    <Compile Include="Assets\Sample\ObjectManager.cs" />
+    <Compile Include="Assets\Test\DummyMission.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

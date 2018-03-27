@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2015
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuckManager", "DuckManager.csproj", "{1FAE0BBC-D987-E2A3-950A-862B9FB67544}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuckManager.Editor", "DuckManager.Editor.csproj", "{1B513F26-47A6-AD91-6E80-903A24D11FEA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{1FAE0BBC-D987-E2A3-950A-862B9FB67544}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FAE0BBC-D987-E2A3-950A-862B9FB67544}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FAE0BBC-D987-E2A3-950A-862B9FB67544}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B513F26-47A6-AD91-6E80-903A24D11FEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B513F26-47A6-AD91-6E80-903A24D11FEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B513F26-47A6-AD91-6E80-903A24D11FEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B513F26-47A6-AD91-6E80-903A24D11FEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

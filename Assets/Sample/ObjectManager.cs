@@ -10,13 +10,13 @@ public class ObjectManager : MonoBehaviour
     public Transform targetSphere;
     public float deltaTime = 5f;
     public float speed = 2f;
-    public Dictionary<object, DuckController> ctrlList;
+    public Dictionary<object, TaskController> ctrlList;
     float time;
 
     // Use this for initialization
     void Start()
     {
-        ctrlList = new Dictionary<object, DuckController>();
+        ctrlList = new Dictionary<object, TaskController>();
         CreatNewCube();
         time = Time.time;
     }
@@ -26,15 +26,15 @@ public class ObjectManager : MonoBehaviour
         GameObject go = Instantiate<GameObject>(cube.gameObject);
         go.transform.position = transform.position;
 
-        var ctrl = new DuckController(go);
-        ctrl.AddMission(new SimpleMove(go.transform, targetSphere.position, speed), new SimpleMove(go.transform, go.transform.position, speed), new Terminate());
-        ctrlList.Add(go.transform, ctrl);
+        var ctrl = new TaskController(new IdleTask());
+        ctrl.AddTask(new SimpleMove(go.transform, targetSphere.position, speed), new SimpleMove(go.transform, go.transform.position, speed), new Terminate());
+        ctrlList.Add(go, ctrl);
     }
 
     // Update is called once per frame
-    KeyValuePair<object,DuckController>[] GetCtrlListClone()
+    KeyValuePair<object,TaskController>[] GetCtrlListClone()
     {
-        var ctrlListClone = new KeyValuePair<object, DuckController>[ctrlList.Count];
+        var ctrlListClone = new KeyValuePair<object, TaskController>[ctrlList.Count];
         int index = 0;
         foreach (var ctrl in ctrlList)
         {
@@ -43,6 +43,8 @@ public class ObjectManager : MonoBehaviour
         }
         return ctrlListClone;
     }
+    
+   
 
     void Update()
     {
@@ -54,13 +56,14 @@ public class ObjectManager : MonoBehaviour
 
         foreach (var ctrl in GetCtrlListClone())
         {
-            if (ctrl.Value.isTermanated)
+            if (ctrl.Value.currentState is Terminate)
             {
                 ctrlList.Remove(ctrl.Key);
+                Destroy(ctrl.Key as GameObject);
             }
             else
             {
-                ctrl.Value.Update();
+                ctrl.Value.StateUpdate();
             }
         }
     }

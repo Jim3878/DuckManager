@@ -10,15 +10,16 @@ public class DuckControllerTest {
     [Test]
 	public void WhenMissionQueeIsEmpty_WillTransToWaitState() {
         // Use the Assert class to test conditions.
-        DuckController duck = new DuckController(0);
+        TaskController duck = new TaskController(new IdleTask());
 
-        Assert.IsTrue(duck.currentState is WaitState);//初始化後預設狀態為waitState;
+        Assert.IsTrue(duck.currentState is IdleTask);//初始化後預設狀態為waitState;
 
-        duck.AddMission(new DummyMission(0));
-        duck.Update();//退出Wait
-        duck.Update();//退出dummyMission
+        duck.AddTask(new DummyMission(0));
+        duck.StateUpdate();//退出Wait
+        duck.StateUpdate();//退出dummyMission
 
-        Assert.IsTrue(duck.currentState is WaitState);//dummyMission結束後轉入 waitState;
+        Debug.Log(duck.currentState);
+        Assert.IsTrue(duck.currentState is IdleTask);//dummyMission結束後轉入 waitState;
     }
     
 }

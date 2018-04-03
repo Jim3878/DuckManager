@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DuckManager
 {
-    public class DummyMission : BaseMission
+    public class DummyMission : ITask
     {
         public int targetUpdate;
         public int updateCount;
@@ -15,11 +15,11 @@ namespace DuckManager
         }
         public override void StateUpdate()
         {
-            TransToNext();
+            TransToNextTask();
             updateCount++;
             if (updateCount >= targetUpdate)
             {
-                TransToNext();
+                TransToNextTask();
             }
 
         }

@@ -7,7 +7,7 @@ namespace DuckManager
     public abstract class IState
     {
         private StateController m_StateController;
-        protected StateController Controller
+        protected StateController controller
         {
             get
             {
@@ -36,6 +36,11 @@ namespace DuckManager
         protected void TransTo(IState oState)
         {
             m_StateController.TransTo(oState);
+        }
+
+        protected void BackToBeginState()
+        {
+            m_bAtStateBegin = true;
         }
 
         public virtual void StateBegin() { }

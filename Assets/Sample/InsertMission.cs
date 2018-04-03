@@ -17,22 +17,23 @@ public class InsertMission : MonoBehaviour
     public void Insert()
     {
         Debug.Log("Click");
-        DuckController ctrl = manager.ctrlList[t];
-        ctrl.GlobalTransTo(new InsertScale(ctrl.currentState as BaseMission));
+        TaskController ctrl = manager.ctrlList[t.gameObject];
+        ctrl.TransTo(new InsertScale(transform, ctrl.currentState));
     }
 
-    class InsertScale : BaseMission
+    class InsertScale : ITask
     {
-        BaseMission nextState;
-        public InsertScale(BaseMission nextState)
+        IState nextState;
+        Transform target;
+        public InsertScale(Transform target, IState nextState)
         {
+            this.target = target;
             this.nextState = nextState;
         }
         public override void StateUpdate()
         {
-            var trans = (duck.target as GameObject).transform;
-            trans.localScale += Vector3.one * 0.1f;
-            if (trans.localScale.magnitude >= (Vector3.one * 2f).magnitude)
+            target.localScale += Vector3.one * 0.1f;
+            if (target.localScale.magnitude >= (Vector3.one * 2f).magnitude)
             {
                 TransTo(nextState);
             }

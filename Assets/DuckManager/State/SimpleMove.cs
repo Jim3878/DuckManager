@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DuckManager
 {
-    public class SimpleMove : BaseMission
+    public class SimpleMove : ITask
     {
         public enum DirectionEnum
         {
@@ -40,11 +40,7 @@ namespace DuckManager
 
             if (mTrans.localPosition.Equals(mTarget))
             {
-                TransToNext();
-            }
-            else if (duck._isCompleteMode)
-            {
-                mTrans.localPosition = mTarget;
+                TransToNextTask();
             }
             else
             {
